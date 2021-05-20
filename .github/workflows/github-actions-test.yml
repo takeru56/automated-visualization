@@ -18,4 +18,4 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: python3 visualiza/test.py
+      - run: python3 visualize/test.py
