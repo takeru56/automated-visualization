@@ -1,9 +1,6 @@
-name: python action test1
+name: python action test1S
 
-on:
-  push:
-    branches: [$default-branch]
-
+on: [push]
 jobs:
   visualize:
     runs-on: ubuntu-latest
