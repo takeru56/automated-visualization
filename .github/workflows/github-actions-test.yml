@@ -17,3 +17,14 @@ jobs:
           pip install -r requirements.txt
       - name: run script
         run: python3 visualize/app.py
+      - name: Commit files
+        run: |
+          git config --local user.email "takeru.tt5672@gmail.com"
+          git config --local user.name "Car-share CI"
+          git add .
+          git commit -m "[CI] Generate Article" -a
+      # - name: Push commits
+      #   run: |
+      #     uses: takeru56/python-action-test@article/hoge
+      #     with:
+      #       github_token: ${{secrets.GITHUB_TOKEN}}
