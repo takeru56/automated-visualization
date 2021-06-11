@@ -23,8 +23,9 @@ jobs:
           git config --local user.name "Car-share CI"
           git add .
           git commit -m "[CI] Generate Article" -a
-      # - name: Push commits
-      #   run: |
-      #     uses: takeru56/python-action-test@article/hoge
-      #     with:
-      #       github_token: ${{secrets.GITHUB_TOKEN}}
+      - name: Push commits
+        run: |
+          uses: takeru56/python-action-test@article/hoge
+          with:
+            github_token: ${{secrets.GITHUB_TOKEN}}
+          git push origin main
