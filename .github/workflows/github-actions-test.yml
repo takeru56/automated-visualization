@@ -35,14 +35,16 @@ jobs:
         run: |
           git push origin ${{ github.ref }}
   make-pr:
-    # APIを使用してPRを作成
-    - name: Make PR
-      run: |
-        curl -X POST \
-          -H "Content-Type: application/json" \
-          https://api.github.com/repos/${{ github.repository }}/pulls \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d '{"head":"${{ github.ref }}", \
-            "base":"refs/heads/main", \
-            "title": "[CI] 使用状況の投稿 - ${{ github.ref }}", \
-            "body": "カーシェアの使用状況の記事を作成しました．\n内容を確認してください．"}'
+    runs-on: ubuntu-latest
+    steps:
+      # APIを使用してPRを作成
+      - name: Make PR
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"head":"${{ github.ref }}", \
+              "base":"refs/heads/main", \
+              "title": "[CI] 使用状況の投稿 - ${{ github.ref }}", \
+              "body": "カーシェアの使用状況の記事を作成しました．\n内容を確認してください．"}'
