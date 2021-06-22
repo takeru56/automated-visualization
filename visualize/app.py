@@ -7,7 +7,7 @@ def test():
     left = [1, 2, 3]  # グラフの横軸（X軸）
     height = [3, 5, 0]  # 値（Y軸）
     plt.bar(left, height)
-    yyyymm = 202108
+    yyyymm = 202109
     plt.savefig(MAKE_RESULT_PATH('bid' + str(yyyymm)[4:6]))
 
 
