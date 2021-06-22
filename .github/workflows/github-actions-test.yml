@@ -1,4 +1,4 @@
-name: python action test1
+name: Carshare Data Visualizer
 
 on:
   push:
@@ -9,7 +9,9 @@ jobs:
   visualize:
     runs-on: ubuntu-latest
     steps:
+      # リポジトリをチェックアウト
       - uses: actions/checkout@v2
+      # python環境を構築
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -18,21 +20,29 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
+      # 図を生成するスクリプトを実行
       - name: Run script
         run: python3 visualize/app.py
+      # 図をコミット
       - name: Commit files
         run: |
           git config --local user.email "takeru.tt5672@gmail.com"
           git config --local user.name "Car-share CI"
           git add .
           git commit -m "[CI] Generate Article" -a
+      # リポジトリにPush
       - name: Push commits
         run: |
           git push origin ${{ github.ref }}
-      - name: Make PR
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            https://api.github.com/repos/${{ github.repository }}/pulls \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -d '{"head":"${{ github.ref }}", "base":"refs/heads/main", "title": "${{ github.ref }}の投稿", "body": "ほげテスト"}' \
+  make-pr:
+    # APIを使用してPRを作成
+    - name: Make PR
+      run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          https://api.github.com/repos/${{ github.repository }}/pulls \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"head":"${{ github.ref }}", \
+            "base":"refs/heads/main", \
+            "title": "[CI] 使用状況の投稿 - ${{ github.ref }}", \
+            "body": "カーシェアの使用状況の記事を作成しました．\n内容を確認してください．"}'
