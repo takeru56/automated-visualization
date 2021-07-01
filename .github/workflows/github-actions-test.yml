@@ -18,8 +18,9 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: |
-          cd ci
-          python3 -m pip install --upgrade pip
+          cd visualize
+          ls
+          # python3 -m pip install --upgrade pip
           # pip install -r requirements.txt
       # 図を生成するスクリプトを実行
       - name: Run script
