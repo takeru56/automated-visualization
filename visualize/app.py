@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import os
+import bids_number
 
 MAKE_RESULT_PATH = lambda f: os.path.join(os.path.dirname(__file__), '../result/' + f + '.png')
 

@@ -18,11 +18,16 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: |
+          cd ci
           python3 -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # pip install -r requirements.txt
       # 図を生成するスクリプトを実行
       - name: Run script
-        run: python3 visualize/app.py
+        run: |
+          cd visualize
+          # python3 app.py ${{ github.ref }}
+          ls
+          print(${{ github.ref }})
       # 図をコミット
       - name: Commit files
         run: |
@@ -47,5 +52,5 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d '{"head":"${{ github.ref }}",
               "base":"refs/heads/main",
-              "title": "[CI] 使用状況の投稿 - ${{ github.ref }}",
+              "title": "[CI] カーシェア使用状況の投稿 - ${{ github.ref }}",
               "body": "カーシェアの使用状況の記事を作成しました．\n内容を確認してください．"}'
